@@ -1,0 +1,465 @@
+<main class="body">
+    <div class="container">
+        <section class="carousel mt-4">
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="./src/assets/img/icon/banner1.jpeg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="./src/assets/img/icon/banner2.jpeg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="sale-header d-flex align-items-center justify-content-between pb-2 border-bottom border-danger">
+                <div class="header_left">
+                    <img src="./src/assets/img/icon/icon-fls.svg" class="img-fluid">
+                    <div id="sale-clock"></div>
+                </div>
+                <div class="header-right d-flex align-items-center justify-content-center gap-3 cursor-pointer">
+                    <p class="fs-5 m-0">Xem tất cả </p>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+            </div>
+
+            <div class="row mt-3 row-gap-4" ng-show="loading">
+                <div class="col-12 col-md-2" ng-repeat="n in [].constructor(6) track by $index">
+                    <div class="card" aria-hidden="true">
+                        <img src="https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg"
+                            class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <a class="btn btn-danger disabled placeholder col-6" aria-disabled="true"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mt-3 row-gap-4">
+                <div class="col-6 col-md-4 col-xl-2" ng-repeat="product in flashSaleProducts | limitTo:6 ">
+                    <div class="card position-relative custom-card-hover p-1">
+                        <a ng-href="#!detail/{{ product._id }}" class="nav-link p-2">
+                            <img src="{{ product.images[0] }}" class="img-fluid card-img-top">
+                        </a>
+                        <div class="card-body p-2">
+                            <a class="nav-link fs-7" ng-href="#!detail/{{ product._id }}">
+                                {{ product.title }}
+                            </a>
+
+                            <div class="d-flex align-items-center justify-content-start gap-2">
+                                <p class="text-danger fw-bold mb-0">
+                                    {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
+                                    currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }}
+                                </p>
+                                <p class="mb-0 fs-8 text-decoration-line-through">
+                                    {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <button class="btn btn-danger w-50 mb-2 ms-1" data-bs-toggle="modal"
+                            data-bs-target="#showDetail" ng-click="showDetail(product)">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+
+                        <span class="badge text-bg-danger position-absolute p-2" ng-if="product.sale > 0">
+                            {{ product.sale }}%
+                        </span>
+                        <button class="btn btn-light position-absolute border-0 shadow-sm" style="top: 10px; right: 10px; z-index: 10; border-radius: 50%; padding: 6px 9px;" ng-click="addToWishlist(product._id)">
+                            <i class="fa-solid fa-heart" ng-class="{'text-danger': isInWishlist(product._id), 'text-secondary hover-danger': !isInWishlist(product._id)}"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="d-flex flex-column align-items-center">
+                <div class="box-header">
+                    <h3 class="text-center mb-3">Sản Phẩm Mới Ra Mắt</h3>
+                </div>
+
+                <div class="row mt-3 row-gap-4" ng-show="loading">
+                    <div class="col-12 col-md-2" ng-repeat="n in [].constructor(6) track by $index">
+                        <div class="card" aria-hidden="true">
+                            <img src="https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg"
+                                class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title placeholder-glow">
+                                    <span class="placeholder col-6"></span>
+                                </h5>
+                                <p class="card-text placeholder-glow">
+                                    <span class="placeholder col-7"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-6"></span>
+                                    <span class="placeholder col-8"></span>
+                                </p>
+                                <a class="btn btn-danger disabled placeholder col-6" aria-disabled="true"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-3 row-gap-4" ng-hide="newProductsLoading">
+                    <div class="col-6 col-md-4 col-xl-2" ng-repeat="product in newProducts | limitTo: 6 ">
+                        <div class="card position-relative custom-card-hover">
+                            <a ng-href="#!detail/{{ product._id }}" class="nav-link p-2">
+                                <img src="{{ product.images[0] }}" class="img-fluid card-img-top">
+                            </a>
+                            <div class="card-body p-2">
+                                <a class="nav-link fs-7" ng-href="#!detail/{{ product._id }}">
+                                    {{ product.title }}
+                                </a>
+
+                                <div class="d-flex align-items-center justify-content-start gap-2">
+                                    <p class="text-danger fw-bold mb-0">
+                                        {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
+                                        currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }}
+                                    </p>
+                                    <p class="mb-0 fs-8 text-decoration-line-through">
+                                        {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger w-50 mb-2 ms-1" data-bs-toggle="modal"
+                                data-bs-target="#showDetail" ng-click="showDetail(product)">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                            <span class="badge text-bg-danger position-absolute p-2" ng-if="product.sale > 0">
+                                {{ product.sale }}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger px-5 mt-4">Xem Tất Cả <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="d-flex flex-column align-items-center">
+                <div class="box-header">
+                    <h3 class="text-center mb-3">Sản Phẩm Nhiều Lượt Xem</h3>
+                </div>
+
+                <div class="row mt-3 row-gap-4" ng-show="loading">
+                    <div class="col-12 col-md-2" ng-repeat="n in [].constructor(6) track by $index">
+                        <div class="card" aria-hidden="true">
+                            <img src="https://phutungnhapkhauchinhhang.com/wp-content/uploads/2020/06/default-thumbnail.jpg"
+                                class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title placeholder-glow">
+                                    <span class="placeholder col-6"></span>
+                                </h5>
+                                <p class="card-text placeholder-glow">
+                                    <span class="placeholder col-7"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-6"></span>
+                                    <span class="placeholder col-8"></span>
+                                </p>
+                                <a class="btn btn-danger disabled placeholder col-6" aria-disabled="true"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-3 row-gap-4" ng-hide="viewProductsLoading">
+                    <div class="col-6 col-md-4 col-xl-2" ng-repeat="product in viewProducts | limitTo:8">
+                        <div class="card position-relative custom-card-hover">
+                            <a ng-href="#!detail/{{ product._id }}" class="nav-link p-2">
+                                <img src="{{ product.images[0] }}" class="img-fluid card-img-top">
+                            </a>
+                            <div class="card-body p-2">
+                                <a class="nav-link fs-7" ng-href="#!detail/{{ product._id }}">
+                                    {{ product.title }}
+                                </a>
+
+                                <div class="d-flex align-items-center justify-content-start gap-2">
+                                    <p class="text-danger fw-bold mb-0">
+                                        {{ product.sale > 0 ? ((product.price - (product.price * product.sale / 100)) |
+                                        currency:'':'0') + 'đ' : (product.price | currency:'':'0') + 'đ' }}
+                                    </p>
+                                    <p class="mb-0 fs-8 text-decoration-line-through">
+                                        {{ product.sale > 0 ? (product.price | currency:'':'0') + 'đ' : '' }}
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger w-50 mb-2 ms-1" data-bs-toggle="modal"
+                                data-bs-target="#showDetail" ng-click="showDetail(product)">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                            <span class="badge text-bg-danger position-absolute p-2" ng-if="product.sale > 0">
+                                {{ product.sale }}%
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger px-5 mt-4">Xem Tất Cả <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+
+        <section class="mt-5">
+            <div class="d-flex flex-column align-items-center gap-3">
+                <div class="box-header">
+                    <h3 class="text-center mb-3">Tin Tức </h3>
+                </div>
+
+                <div class="group-news row gap-xl-0 gap-3">
+                    <div class="col-xl-6 col-sm-12">
+                        <div class="card p-4">
+                            <img src="./src/assets/img/icon/8-3.webp"
+                                class="img-fluid w-100 card-img-top" style="object-fit: cover; max-height: 300px;">
+                            <h5 class="my-2 card-title">Happy 8/3 Happy Sale - Vì Phụ Nữ là Để Yêu!</h5>
+
+                            <p class="text-news">Mừng Ngày Quốc tế Phụ nữ 8/3, HUST Shop gửi ngàn quà tặng ý nghĩa dành tặng phái đẹp! GIẢM 50% dưỡng da Sakura, nước hoa...</p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-6 com-sm-12 d-flex flex-column gap-3">
+
+                        <div class="card">
+                            <div class="news-1 d-flex align-items-start justify-content-between gap-3">
+                                <img src="./src/assets/img/icon/thermal_shirt.png"
+                                    style="width: 180px; object-fit: cover;" class="news-img-custom">
+
+                                <div>
+                                    <h6 class="my-2">Nguyên lý hoạt động của áo giữ nhiệt WarmMax</h6>
+                                    <p class="text-news">Khám phá công nghệ đằng sau chiếc áo giữ nhiệt siêu mỏng nhưng cực ấm. Áo WarmMax HUST Shop sử dụng sợi vải công nghệ cao, giữ nhiệt cơ thể trong mùa đông giá rét...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="news-1 d-flex align-items-start justify-content-between gap-3">
+                                <img src="./src/assets/img/icon/polo_shirt.png"
+                                    style="width: 180px; object-fit: cover;" class="news-img-custom">
+
+                                <div>
+                                    <h6 class="my-2">BST Áo Polo HUST Shop Thế Hệ Mới 2024</h6>
+                                    <p class="text-news">Ra mắt bộ sưu tập áo Polo dành riêng cho sinh viên Bách Khoa, với chất liệu thấm hút mồ hôi, co giãn 4 chiều cực kỳ thoải mái cho những giờ học trên giảng đường...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger px-5">Xem Tất Cả <i class="fa-solid fa-arrow-right"></i></button>
+
+            </div>
+        </section>
+
+        <section class="mt-5">
+            <div class="position-relative d-sm-flex">
+                <img src="./src/assets/img/icon/store-bg.webp" class="w-100 d-sm-flex" height="600px" style="object-fit: cover;">
+                <div style="position: absolute; top: 0; left: 0; width: 65%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,1) 30%, rgba(255,255,255,0.8) 60%, rgba(255,255,255,0) 100%);"></div>
+
+                <div
+                    class="group-text d-flex flex-column gap-3 align-items-start justify-content-start position-absolute top-50 start-0 w-50 translate-middle-y">
+                    <h4>HỆ THỐNG CỬA HÀNG</h4>
+                    <h3 class="fw-bold"><span class="text-danger">HUST SHOP</span> CÓ HỆ THỐNG CỬA HÀNG <br> TRÊN
+                        TOÀN QUỐC</h3>
+                    <p>Trải dài trên khắp Việt Nam, HUST Shop mang đến những sản phẩm công nghệ,<br> trí tuệ và chất
+                        lượng từ sinh viên Bách Khoa tới hàng triệu người tiêu dùng Việt.</p>
+                    <button class="btn btn-danger px-5">Xem Vị Trí Cửa Hàng</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="mt-5 bg-menu-custom py-5">
+        <div class="box-header">
+            <h3 class="text-center mb-5">Sản Phẩm Nghiên Cứu - Chế Tác</h3>
+        </div>
+
+        <div class="container p-0">
+            <div class="row">
+                <div class="col-xl-6 col-sm-12">
+                    <img src="./src/assets/img/icon/banner2.jpeg" class="img-fluid w-100 rounded-3 shadow-sm" style="object-fit: cover; height: 100%;">
+                </div>
+
+                <div class="col-xl-6 col-sm-2 d-flex flex-column align-items-start justify-content-start gap-3">
+                    <div class="box-header d-flex flex-row align-items-center gap-4">
+                        <img src="./src/assets/img/icon/icon-special.svg" alt="" class="img-fluid">
+                        <p class="mb-0 fs-5 fw-bold">SẢN PHẨM ĐƯỢC NGHIÊN CỨU VÀ PHÁT TRIỂN BỞI SINH VIÊN ĐẠI HỌC BÁCH KHOA HÀ NỘI ...</p>
+                    </div>
+
+                    <p class="box-content">
+                        HUST Shop cam kết luôn mang tới cho khách hàng các sản phẩm trí tuệ, chất lượng được chế tạo bởi chính sinh viên HUST. Tất cả sản phẩm đều trải qua các vòng kiểm định khắt khe tại các phòng thí nghiệm đạt chuẩn nhằm đưa tới sự trải nghiệm sản phẩm tốt nhất dành cho khách hàng.
+                    </p>
+
+                    <button class="btn btn-danger">
+                        Xem Thêm
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div
+                    class="col-xl-3 col-md-4 col-sm-6 text-center p-4 rounded-2 shadow-sm multi-box d-flex flex-column align-items-center justify-content-between">
+                    <img src="./src/assets/img/icon/icon-like.svg" class="img-fluid">
+                    <h6 class="fw-bold my-3">Hàng Hoá Chất Lượng</h6>
+                    <small>Tận hưởng các mặt hàng chất lượng hàng đầu với giá cả hợp lý</small>
+                </div>
+
+                <div
+                    class="col-xl-3 col-md-4 col-sm-6 text-center p-4 rounded-2 shadow-sm multi-box d-flex flex-column align-items-center justify-content-between">
+                    <img src="./src/assets/img/icon/icon-support.svg" class="img-fluid">
+                    <h6 class="fw-bold my-3">Hàng Hoá Chất Lượng</h6>
+                    <small>Tận hưởng các mặt hàng chất lượng hàng đầu với giá cả hợp lý</small>
+                </div>
+
+                <div
+                    class="col-xl-3 col-md-4 col-sm-6 text-center p-4 rounded-2 shadow-sm multi-box d-flex flex-column align-items-center justify-content-between">
+                    <img src="./src/assets/img/icon/icon-truck.svg" class="img-fluid">
+                    <h6 class="fw-bold my-3">Hàng Hoá Chất Lượng</h6>
+                    <small>Tận hưởng các mặt hàng chất lượng hàng đầu với giá cả hợp lý</small>
+                </div>
+
+                <div
+                    class="col-xl-3 col-md-4 col-sm-6 text-center p-4 rounded-2 shadow-sm multi-box d-flex flex-column align-items-center justify-content-between">
+                    <img src="./src/assets/img/icon/icon-money.svg" class="img-fluid">
+                    <h6 class="fw-bold my-3">Hàng Hoá Chất Lượng</h6>
+                    <small>Tận hưởng các mặt hàng chất lượng hàng đầu với giá cả hợp lý</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-5 text-bg-danger">
+        <div class="container py-5 text-center d-flex flex-column gap-3 justify-content-between  align-items-center">
+            <img src="./src/assets/img/icon/logo-white.jpg" class="img-fluid" width="200px">
+
+            <h5 class="fst-italic">
+                HUST Shop trân trọng cảm ơn Quý Khách đã ủng hộ và chắp cánh cho những ước mơ khởi nghiệp của sinh viên.
+            </h5>
+
+            <p class="fst-italic mb-0">
+                HUST Shop là cửa hàng bán lẻ đồ điện tử, thiết bị thông minh, thời trang và quà lưu niệm chính hãng từ Đại học Bách Khoa Hà Nội. Chúng tôi mang đến những sản phẩm mang đậm chất xám và tinh thần sáng tạo của người Bách Khoa. Từ các mạch điện tử, robot, thiết bị smarthome cho đến áo phông, balo, sổ tay mang thương hiệu HUST. Tất cả đều được kiểm định chất lượng chặt chẽ để mang lại sự yên tâm tuyệt đối cho khách hàng!
+            </p>
+        </div>
+    </section>
+
+    <div class="modal fade" id="showDetail" tabindex="-1" aria-labelledby="showDetail" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Thông Tin Sản Phẩm</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <img src="{{ selectedProduct.images[0] }}" class="img-fluid w-100">
+                            </div>
+
+                            <div class="col-6 d-flex flex-column gap-4">
+
+                                <div class="d-flex flex-column gap-1">
+                                    <h4 class="text-start fw-bold mb-0">{{ selectedProduct.title }}</h4>
+
+                                    <div class="star-group text-warning">
+                                        <span ng-if="!selectedProduct.rating || selectedProduct.rating.length === 0">Chưa có đánh giá</span>
+                                        <div class="star-group" ng-if="selectedProduct.rating && selectedProduct.rating.length > 0">
+                                            <i class="fa-solid fa-star text-warning"
+                                            ng-repeat="i in getStars(selectedProduct.totalRating) track by $index"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center pb-3 custom-dash">
+                                    <div class="d-flex align-items-center justify-content-start gap-3">
+
+                                        <p class="mb-0 fw-bold fs-4 text-danger">
+                                            {{ selectedProduct.sale > 0 ? ((selectedProduct.price -
+                                            (selectedProduct.price * selectedProduct.sale /
+                                            100)) |
+                                            currency:'':'0') + 'đ' : (selectedProduct.price | currency:'':'0') + 'đ' }}
+                                        </p>
+                                        <p class="mb-0 fw-light text-decoration-line-through" ng-if="product.sale > 0">
+                                            {{ selectedProduct.sale > 0 ? (selectedProduct.price | currency:'':'0') +
+                                            'đ' : '' }}
+                                        </p>
+                                        <span class="badge text-bg-danger" ng-if="product.sale > 0">
+                                            {{ selectedProduct.sale }}%
+                                        </span>
+                                    </div>
+
+                                    <div class="icon-check">
+                                        <span class="fw-medium">Còn Hàng</span>
+                                        <img src="./src/assets/img/icon/icon-check.svg" alt />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label for="selectedVariant" class="form-label">Chọn loại sản phẩm</label>
+                                    <select class="form-control w-25" ng-model="selectedVariant"
+                                        ng-options="variant._id as (variant.color + ' - ' + variant.size ) for variant in selectedProduct.variants">
+                                    </select>
+
+                                    <div ng-show="selectedVariant">
+                                        <p class="mb-0 mt-3">Số lượng: {{ getProductQuantity(selectedVariant) }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="group-quantity">
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="fs-6 fw-bold d-block">Số Lượng</span>
+                                        <div class="d-flex">
+                                            <div class="custom-btn-quantity" ng-click="changeQuantity('decrease')">-
+                                            </div>
+                                            <input type="number" name="quantity" id="quantity"
+                                                class="custom-input-quantity text-center" ng-model="quantity">
+                                            <div class="custom-btn-quantity" ng-click="changeQuantity('increase')">+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-danger mt-3 " ng-click="addToCart(selectedProduct)">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
